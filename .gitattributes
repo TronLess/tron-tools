@@ -1,0 +1,10 @@
+# Keep LF in the repository and on every checkout. The bin/ shebangs are
+# executed directly by npx, and `#!/usr/bin/env node\r` fails on Linux and
+# macOS with "env: 'node\r': No such file or directory" — so a package
+# published from a Windows working copy would ship eleven broken CLIs.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary

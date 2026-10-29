@@ -1,0 +1,28 @@
+{
+  "name": "tronless-tools",
+  "private": true,
+  "version": "0.1.0",
+  "description": "TronLess developer tools for the TRON network: address conversion, energy calculator, TRC-20 decoder, transaction inspector, RPC health, address watcher and more.",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "test:live": "node scripts/run-tests.mjs --live",
+    "site": "node scripts/build-site.mjs",
+    "check": "node scripts/check-packages.mjs"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "marked": "^15.0.0"
+  },
+  "license": "MIT",
+  "homepage": "https://tronless.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronLess/tron-tools.git"
+  }
+}

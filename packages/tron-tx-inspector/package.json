@@ -1,0 +1,61 @@
+{
+  "name": "@tronless/tron-tx-inspector",
+  "version": "0.1.0",
+  "description": "Inspect any TRON transaction by hash: status, block, sender, recipient, token amount, decoded TRC-20 method and events, and a full fee breakdown (energy burned vs staked, bandwidth, activation, memo). TronScan-style receipt from the CLI or as JSON.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./index.d.ts",
+  "bin": {
+    "tron-tx-inspector": "./bin/tron-tx-inspector.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "index.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "tron",
+    "tron transaction",
+    "tron transaction lookup",
+    "tron txid",
+    "tron transaction fee",
+    "gettransactioninfobyid",
+    "tron receipt",
+    "trc20 transaction status",
+    "tron transaction api",
+    "tronscan api",
+    "usdt trc20 transaction check",
+    "tron energy fee breakdown"
+  ],
+  "dependencies": {
+    "@tronless/trc20-decoder": "^0.1.0",
+    "@tronless/tron-address": "^0.1.0",
+    "@tronless/tron-client": "^0.1.0",
+    "@tronless/tron-units": "^0.1.0"
+  },
+  "license": "MIT",
+  "author": "TronLess <https://tronless.app>",
+  "homepage": "https://github.com/TronLess/tron-tools/tree/main/packages/tron-tx-inspector#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronLess/tron-tools.git",
+    "directory": "packages/tron-tx-inspector"
+  },
+  "bugs": {
+    "url": "https://github.com/TronLess/tron-tools/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

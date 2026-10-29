@@ -1,0 +1,55 @@
+{
+  "name": "@tronless/tron-client",
+  "version": "0.1.0",
+  "description": "Minimal TRON full-node / TronGrid HTTP client for Node.js: network presets (mainnet, nile, shasta), TRON-PRO-API-KEY support, timeouts, automatic retry on rate limits. Zero dependencies.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./index.d.ts",
+  "bin": {
+    "tron-client": "./bin/tron-client.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "index.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "tron",
+    "trongrid",
+    "tron api",
+    "tron http api",
+    "tron full node",
+    "tron rpc client",
+    "trongrid api key",
+    "tron nodejs",
+    "nile testnet",
+    "shasta testnet",
+    "trc20",
+    "blockchain"
+  ],
+  "license": "MIT",
+  "author": "TronLess <https://tronless.app>",
+  "homepage": "https://github.com/TronLess/tron-tools/tree/main/packages/tron-client#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronLess/tron-tools.git",
+    "directory": "packages/tron-client"
+  },
+  "bugs": {
+    "url": "https://github.com/TronLess/tron-tools/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

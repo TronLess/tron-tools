@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  schedule:
+    # Weekly live run against mainnet so the fee defaults and endpoint list stay honest.
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - run: npm test
+      - run: node scripts/check-packages.mjs
+
+  live:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    env:
+      TRON_PRO_API_KEY: ${{ secrets.TRON_PRO_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: node scripts/run-tests.mjs --live
+      - run: node packages/tron-rpc-health/bin/tron-rpc-health.js --network mainnet
+      - run: node packages/tron-energy-calculator/bin/tron-energy-calculator.js usdt --live

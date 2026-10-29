@@ -1,0 +1,60 @@
+{
+  "name": "@tronless/tron-energy-calculator",
+  "version": "0.1.0",
+  "description": "TRON energy and bandwidth fee calculator: how much TRX a USDT TRC-20 transfer burns, energy vs bandwidth breakdown, new-recipient surcharge, rent-vs-burn-vs-stake comparison. Uses live getchainparameters (getEnergyFee) with offline defaults.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./index.d.ts",
+  "bin": {
+    "tron-energy-calculator": "./bin/tron-energy-calculator.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "index.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "tron",
+    "tron energy calculator",
+    "tron fee calculator",
+    "usdt trc20 fee",
+    "usdt trc20 transfer fee",
+    "tron energy",
+    "tron bandwidth",
+    "how much energy usdt transfer",
+    "getEnergyFee",
+    "tron gas fee",
+    "trc20 fee estimate",
+    "tron energy rental",
+    "tron staking energy"
+  ],
+  "dependencies": {
+    "@tronless/tron-client": "^0.1.0",
+    "@tronless/tron-units": "^0.1.0"
+  },
+  "license": "MIT",
+  "author": "TronLess <https://tronless.app>",
+  "homepage": "https://github.com/TronLess/tron-tools/tree/main/packages/tron-energy-calculator#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronLess/tron-tools.git",
+    "directory": "packages/tron-energy-calculator"
+  },
+  "bugs": {
+    "url": "https://github.com/TronLess/tron-tools/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

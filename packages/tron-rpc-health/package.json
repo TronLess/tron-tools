@@ -1,0 +1,59 @@
+{
+  "name": "@tronless/tron-rpc-health",
+  "version": "0.1.0",
+  "description": "TRON RPC endpoint health checker: latency, block height and lag for TronGrid, TronStack, public nodes and JSON-RPC providers on mainnet, Nile and Shasta. Curated endpoint list, picks the best node for your app. CLI + library.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./index.d.ts",
+  "bin": {
+    "tron-rpc-health": "./bin/tron-rpc-health.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "index.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "tron",
+    "tron rpc",
+    "tron rpc url",
+    "tron mainnet rpc",
+    "tron testnet rpc",
+    "nile testnet",
+    "shasta testnet",
+    "trongrid",
+    "tron node status",
+    "tron json-rpc",
+    "tron endpoint list",
+    "tron full node",
+    "rpc health check"
+  ],
+  "dependencies": {
+    "@tronless/tron-client": "^0.1.0"
+  },
+  "license": "MIT",
+  "author": "TronLess <https://tronless.app>",
+  "homepage": "https://github.com/TronLess/tron-tools/tree/main/packages/tron-rpc-health#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronLess/tron-tools.git",
+    "directory": "packages/tron-rpc-health"
+  },
+  "bugs": {
+    "url": "https://github.com/TronLess/tron-tools/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "@tronless/tron-keygen",
+  "version": "0.1.0",
+  "description": "Offline TRON wallet generator: create a TRON private key and address, derive accounts from a BIP-39 mnemonic (m/44'/195'/0'/0/n), convert a private key to a TRON address, and search vanity addresses. CLI + library, no network access.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./index.d.ts",
+  "bin": {
+    "tron-keygen": "./bin/tron-keygen.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "index.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "tron",
+    "tron wallet generator",
+    "tron address generator",
+    "tron private key to address",
+    "tron vanity address",
+    "tron mnemonic",
+    "bip39 tron",
+    "tron derivation path",
+    "m/44'/195'/0'/0/0",
+    "generate tron wallet offline",
+    "tron keypair",
+    "secp256k1",
+    "trc20 wallet"
+  ],
+  "dependencies": {
+    "@noble/curves": "^2.0.0",
+    "@noble/hashes": "^2.0.0",
+    "@scure/bip32": "^2.0.0",
+    "@scure/bip39": "^2.0.0",
+    "@tronless/tron-address": "^0.1.0"
+  },
+  "license": "MIT",
+  "author": "TronLess <https://tronless.app>",
+  "homepage": "https://github.com/TronLess/tron-tools/tree/main/packages/tron-keygen#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronLess/tron-tools.git",
+    "directory": "packages/tron-keygen"
+  },
+  "bugs": {
+    "url": "https://github.com/TronLess/tron-tools/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

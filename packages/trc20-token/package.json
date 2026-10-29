@@ -1,0 +1,61 @@
+{
+  "name": "@tronless/trc20-token",
+  "version": "0.1.0",
+  "description": "Read any TRC-20 token on TRON without a private key: token name, symbol, decimals, total supply, balanceOf and allowance via triggerconstantcontract. Get a USDT TRC-20 balance in one call. CLI + library.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./index.d.ts",
+  "bin": {
+    "trc20-token": "./bin/trc20-token.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "index.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "tron",
+    "trc20",
+    "trc20 balance",
+    "usdt trc20 balance",
+    "get trc20 balance api",
+    "trc20 token info",
+    "tron balanceOf",
+    "triggerconstantcontract",
+    "trc20 decimals",
+    "trc20 allowance",
+    "tron token api",
+    "usdt tron balance check"
+  ],
+  "dependencies": {
+    "@tronless/trc20-decoder": "^0.1.0",
+    "@tronless/tron-address": "^0.1.0",
+    "@tronless/tron-client": "^0.1.0",
+    "@tronless/tron-units": "^0.1.0"
+  },
+  "license": "MIT",
+  "author": "TronLess <https://tronless.app>",
+  "homepage": "https://github.com/TronLess/tron-tools/tree/main/packages/trc20-token#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronLess/tron-tools.git",
+    "directory": "packages/trc20-token"
+  },
+  "bugs": {
+    "url": "https://github.com/TronLess/tron-tools/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "name": "@tronless/trc20-decoder",
+  "version": "0.1.0",
+  "description": "Decode TRC-20 transaction input data and event logs on TRON: transfer / approve / transferFrom calldata, Transfer and Approval events, function selectors, plus a minimal ABI encoder for read-only calls. Works with raw TronGrid JSON.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./index.d.ts",
+  "bin": {
+    "trc20-decoder": "./bin/trc20-decoder.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "index.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "tron",
+    "trc20",
+    "trc20 decoder",
+    "decode trc20 transaction",
+    "tron transaction decoder",
+    "tron abi decoder",
+    "decode input data",
+    "trc20 transfer event",
+    "tron event log decode",
+    "function selector",
+    "a9059cbb",
+    "TriggerSmartContract",
+    "usdt trc20"
+  ],
+  "dependencies": {
+    "@noble/hashes": "^2.0.0",
+    "@tronless/tron-address": "^0.1.0",
+    "@tronless/tron-client": "^0.1.0"
+  },
+  "license": "MIT",
+  "author": "TronLess <https://tronless.app>",
+  "homepage": "https://github.com/TronLess/tron-tools/tree/main/packages/trc20-decoder#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronLess/tron-tools.git",
+    "directory": "packages/trc20-decoder"
+  },
+  "bugs": {
+    "url": "https://github.com/TronLess/tron-tools/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

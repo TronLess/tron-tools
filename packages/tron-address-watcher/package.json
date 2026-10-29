@@ -1,0 +1,60 @@
+{
+  "name": "@tronless/tron-address-watcher",
+  "version": "0.1.0",
+  "description": "Watch TRON addresses for incoming and outgoing USDT TRC-20 and TRX transfers. Polls TronGrid, de-duplicates, emits events and optional webhooks — deposit notifications for exchanges, payment gateways and bots without running a node.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./index.d.ts",
+  "bin": {
+    "tron-address-watcher": "./bin/tron-address-watcher.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "index.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "tron",
+    "tron address monitor",
+    "usdt trc20 deposit",
+    "trc20 deposit notification",
+    "tron webhook",
+    "listen trc20 transfers",
+    "tron payment gateway",
+    "tron transaction monitor",
+    "trongrid events",
+    "usdt tron watcher",
+    "crypto deposit detection",
+    "tron nodejs"
+  ],
+  "dependencies": {
+    "@tronless/tron-address": "^0.1.0",
+    "@tronless/tron-client": "^0.1.0",
+    "@tronless/tron-units": "^0.1.0"
+  },
+  "license": "MIT",
+  "author": "TronLess <https://tronless.app>",
+  "homepage": "https://github.com/TronLess/tron-tools/tree/main/packages/tron-address-watcher#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronLess/tron-tools.git",
+    "directory": "packages/tron-address-watcher"
+  },
+  "bugs": {
+    "url": "https://github.com/TronLess/tron-tools/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

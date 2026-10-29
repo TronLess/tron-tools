@@ -1,0 +1,55 @@
+{
+  "name": "@tronless/tron-units",
+  "version": "0.1.0",
+  "description": "SUN ⇄ TRX converter and TRC-20 token amount formatter for JavaScript. BigInt-safe parseUnits / formatUnits for TRX (6 decimals), USDT TRC-20 and any token decimals. Zero dependencies, CLI included.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./index.d.ts",
+  "bin": {
+    "tron-units": "./bin/tron-units.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "index.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "tron",
+    "sun to trx",
+    "trx to sun",
+    "tron units",
+    "sun trx converter",
+    "trc20 decimals",
+    "usdt trc20 decimals",
+    "formatUnits",
+    "parseUnits",
+    "bigint",
+    "tron amount formatting",
+    "trx"
+  ],
+  "license": "MIT",
+  "author": "TronLess <https://tronless.app>",
+  "homepage": "https://github.com/TronLess/tron-tools/tree/main/packages/tron-units#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronLess/tron-tools.git",
+    "directory": "packages/tron-units"
+  },
+  "bugs": {
+    "url": "https://github.com/TronLess/tron-tools/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

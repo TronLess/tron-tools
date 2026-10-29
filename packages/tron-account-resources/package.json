@@ -1,0 +1,60 @@
+{
+  "name": "@tronless/tron-account-resources",
+  "version": "0.1.0",
+  "description": "Check TRON account energy, bandwidth, staked TRX (Stake 2.0), delegated resources and pending unstakes for any address, with a human-readable summary of how many USDT transfers the balance covers. CLI + library.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "types": "./index.d.ts",
+  "bin": {
+    "tron-account-resources": "./bin/tron-account-resources.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "index.d.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "tron",
+    "tron energy",
+    "check tron energy",
+    "tron bandwidth",
+    "tron account resources",
+    "getaccountresource",
+    "tron staking",
+    "stake 2.0",
+    "tron delegated energy",
+    "tron energy balance",
+    "freeNetLimit",
+    "tron account api"
+  ],
+  "dependencies": {
+    "@tronless/tron-address": "^0.1.0",
+    "@tronless/tron-client": "^0.1.0",
+    "@tronless/tron-units": "^0.1.0"
+  },
+  "license": "MIT",
+  "author": "TronLess <https://tronless.app>",
+  "homepage": "https://github.com/TronLess/tron-tools/tree/main/packages/tron-account-resources#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TronLess/tron-tools.git",
+    "directory": "packages/tron-account-resources"
+  },
+  "bugs": {
+    "url": "https://github.com/TronLess/tron-tools/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
