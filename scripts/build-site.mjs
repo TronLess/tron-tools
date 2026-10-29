@@ -6,6 +6,7 @@
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 import { marked } from 'marked';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -14,6 +15,27 @@ const BASE = process.env.SITE_BASE || '/tools';
 const OUT = path.join(root, 'site', 'dist', BASE.replace(/^\//, ''));
 const REPO = 'https://github.com/TronLess/tron-tools/tree/main';
 const today = new Date().toISOString().slice(0, 10);
+
+// Search-result copy lives in seo/meta.json. A title is cut at ~60 characters and a description
+// at ~160, while the npm description in package.json is not cut at all and is written for npm
+// search — so the two are kept apart instead of one being reused as the other.
+const metaPath = path.join(root, 'seo', 'meta.json');
+const META = existsSync(metaPath) ? JSON.parse(readFileSync(metaPath, 'utf8')) : {};
+
+/** Dates come from git, so lastmod moves only when that package actually changed. */
+function gitDate(prefix, oldest) {
+  try {
+    const args = ['log', '--format=%cs', oldest ? '--reverse' : '-1', '--', prefix];
+    const lines = execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim().split('\n');
+    return (oldest ? lines[0] : lines[lines.length - 1]) || today;
+  } catch {
+    return today;
+  }
+}
+
+/** The README heading ends with the package name, which the page body already carries. */
+const shortTitle = (h1) => h1.replace(/\s+[—–-]\s+@tronless\/\S+\s*$/, '').trim();
+const clamp = (s, n) => (s.length <= n ? s : s.slice(0, s.lastIndexOf(' ', n)).replace(/[,;:]$/, '') + '…');
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -92,16 +114,31 @@ const packages = readdirSync(packagesDir)
     return { dir: d, pkg, md };
   });
 
+const pkgDirs = new Set(packages.map((p) => p.dir));
+
+/** README links are written for GitHub; on the site they have to point at the published pages. */
+function rewriteLinks(md) {
+  return md
+    .replace(/\]\(\.\.\/\.\.\/README\.md\)/g, '](' + SITE + BASE + '/)')
+    .replace(/\]\((?:\.\.|packages)\/([a-z0-9-]+)\)/g, (m, slug) =>
+      (pkgDirs.has(slug) ? '](' + SITE + BASE + '/' + slug + '/)' : m))
+    .replace(/\]\(seo\/([^)]+)\)/g, '](' + REPO + '/seo/$1)');
+}
+
 mkdirSync(OUT, { recursive: true });
 const urls = [];
 
 for (const { dir, pkg, md } of packages) {
   const url = `${SITE}${BASE}/${dir}/`;
   const h1 = (/^# (.+)$/m.exec(md) || [, pkg.name])[1].replace(/[`*]/g, '');
-  const title = `${h1} | TronLess Tools`;
-  const description = pkg.description;
+  const meta = META[dir] || {};
+  const title = (meta.title || shortTitle(h1)) + ' | TronLess';
+  const description = meta.description || clamp(pkg.description, 155);
+  const nodeFloor = (/(\d+)/.exec((pkg.engines && pkg.engines.node) || '') || [, '20'])[1];
+  const published = gitDate('packages/' + dir, true);
+  const modified = gitDate('packages/' + dir, false);
   const faq = extractFaq(md);
-  const bodyMd = md.replace(/^# .*\n/, '');
+  const bodyMd = rewriteLinks(md.replace(/^# .*\n/, ''));
   const html = marked.parse(bodyMd, { gfm: true });
   const jsonLd = [
     {
@@ -112,7 +149,7 @@ for (const { dir, pkg, md } of packages) {
       description,
       url,
       applicationCategory: 'DeveloperApplication',
-      operatingSystem: 'Node.js >= 18',
+      operatingSystem: 'Node.js >= ' + nodeFloor,
       softwareVersion: pkg.version,
       license: 'https://opensource.org/licenses/MIT',
       isAccessibleForFree: true,
@@ -122,8 +159,8 @@ for (const { dir, pkg, md } of packages) {
       keywords: (pkg.keywords || []).join(', '),
       author: { '@type': 'Organization', name: 'TronLess', url: `${SITE}/` },
       publisher: { '@type': 'Organization', name: 'TronLess', url: `${SITE}/` },
-      datePublished: '2026-09-08',
-      dateModified: today,
+      datePublished: published,
+      dateModified: modified,
     },
     {
       '@context': 'https://schema.org',
@@ -155,21 +192,23 @@ for (const { dir, pkg, md } of packages) {
   const body = `
 <nav class="crumbs"><a href="${SITE}/">TronLess</a> › <a href="${SITE}${BASE}/">Developer tools</a> › ${esc(h1)}</nav>
 <h1>${esc(h1)}</h1>
-<p><a href="https://www.npmjs.com/package/${pkg.name}">npm: ${pkg.name}</a> · <a href="${REPO}/packages/${dir}">GitHub</a> · MIT · Node.js ≥ 18</p>
+<p><a href="https://www.npmjs.com/package/${pkg.name}">npm: ${pkg.name}</a> · <a href="${REPO}/packages/${dir}">GitHub</a> · MIT · Node.js ≥ ${nodeFloor}</p>
 ${html}
 <div class="cta"><strong>Need energy for USDT transfers?</strong> TronLess rents TRON energy to wallets, exchanges and bots — <a href="${SITE}/tron-energy">how it works</a> · <a href="${SITE}/api">API</a> · <a href="https://t.me/tronless_bot">Telegram bot</a>.</div>
 `;
   const dirOut = path.join(OUT, dir);
   mkdirSync(dirOut, { recursive: true });
   writeFileSync(path.join(dirOut, 'index.html'), layout({ title, description, canonical: url, jsonLd, body, ogType: 'article' }));
-  urls.push({ loc: url, priority: '0.8' });
+  urls.push({ loc: url, lastmod: modified, priority: '0.8' });
   console.log(`built ${BASE}/${dir}/  (${faq.length} FAQ items)`);
 }
 
 // Hub page
 const hubMd = existsSync(path.join(root, 'README.md')) ? readFileSync(path.join(root, 'README.md'), 'utf8') : '# TronLess Tools';
-const hubTitle = 'TRON Developer Tools: address, energy, TRC-20, transaction and RPC utilities | TronLess';
-const hubDesc = 'Free, MIT-licensed Node.js tools for TRON developers by TronLess: address validator, SUN/TRX units, wallet generator, energy fee calculator, account resources, TRC-20 decoder, token reader, transaction inspector, RPC health checker and address watcher.';
+const hubMeta = META.index || {};
+const hubTitle = (hubMeta.title || 'TRON developer tools') + ' | TronLess';
+const hubDesc = hubMeta.description
+  || 'Free, MIT-licensed Node.js tools for TRON developers by TronLess.';
 const hubUrl = `${SITE}${BASE}/`;
 const cards = packages
   .map(({ dir, pkg, md }) => {
@@ -179,7 +218,7 @@ const cards = packages
   .join('\n');
 const hubBody = `
 <nav class="crumbs"><a href="${SITE}/">TronLess</a> › Developer tools</nav>
-${marked.parse(hubMd.replace(/^# .*\n/, '<h1>TRON developer tools by TronLess</h1>\n'), { gfm: true })}
+${marked.parse(rewriteLinks(hubMd.replace(/^# .*\n/, '<h1>TRON developer tools by TronLess</h1>\n')), { gfm: true })}
 <h2>All tools</h2>
 <div class="grid">${cards}</div>
 `;
@@ -208,11 +247,11 @@ const hubJsonLd = [
   },
 ];
 writeFileSync(path.join(OUT, 'index.html'), layout({ title: hubTitle, description: hubDesc, canonical: hubUrl, jsonLd: hubJsonLd, body: hubBody }));
-urls.unshift({ loc: hubUrl, priority: '0.9' });
+urls.unshift({ loc: hubUrl, lastmod: urls.map((u) => u.lastmod).sort().pop() || today, priority: '0.9' });
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${u.loc}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${u.priority}</priority></url>`).join('\n')}
+${urls.map((u) => `  <url><loc>${u.loc}</loc><lastmod>${u.lastmod}</lastmod><changefreq>weekly</changefreq><priority>${u.priority}</priority></url>`).join('\n')}
 </urlset>
 `;
 writeFileSync(path.join(OUT, 'sitemap.xml'), sitemap);

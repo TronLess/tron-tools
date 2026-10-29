@@ -50,6 +50,22 @@ for (const dir of readdirSync(packagesDir)) {
     if (dep.startsWith('@tronless/')) ok(existsSync(path.join(packagesDir, dep.replace('@tronless/', ''))), `${tag} internal dep ${dep} not found`);
   }
 }
+// Search-result copy. A title over ~60 characters and a description over ~160 are cut in the
+// result page, and the generator appends " | TronLess" (11 characters) to every title. These
+// limits are checked here because the defect is invisible in the repository and only shows up
+// in the search result, long after the page is published.
+const metaPath = path.join(root, 'seo', 'meta.json');
+ok(existsSync(metaPath), 'seo/meta.json missing');
+if (existsSync(metaPath)) {
+  const meta = JSON.parse(readFileSync(metaPath, 'utf8'));
+  for (const key of ['index', ...names.map((n) => n.replace('@tronless/', ''))]) {
+    const e = meta[key];
+    ok(e, `[seo] meta.json has no entry for ${key}`);
+    if (!e) continue;
+    ok(typeof e.title === 'string' && e.title.length <= 49, `[seo] ${key} title must be 49 chars or fewer before " | TronLess" (${e.title?.length})`);
+    ok(typeof e.description === 'string' && e.description.length >= 120 && e.description.length <= 160, `[seo] ${key} description should be 120-160 chars (${e.description?.length})`);
+  }
+}
 console.log(`Checked ${names.length} packages: ${names.join(', ')}`);
 if (problems.length) {
   console.error(`\n${problems.length} problem(s):`);

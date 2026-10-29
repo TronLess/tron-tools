@@ -1,0 +1,52 @@
+{
+  "_comment": "Search-result copy. A title is cut at ~60 characters and a description at ~160, while an npm description is not cut at all — so these are written separately from package.json. The site generator appends ' | TronLess' to every title; keep the text here under 49 characters. Checked by scripts/check-packages.mjs.",
+
+  "index": {
+    "title": "TRON developer tools: energy, TRC-20, addresses",
+    "description": "Eleven free MIT-licensed Node.js tools for TRON developers: address validation, SUN/TRX units, offline keygen, energy fee calculator, TRC-20 decoding."
+  },
+  "tron-address": {
+    "title": "TRON address validator and converter",
+    "description": "Validate any TRON or TRC-20 address by its real checksum and convert Base58 (T…) to hex (41…) or EVM 0x form. CLI and library, no tronweb needed."
+  },
+  "tron-units": {
+    "title": "SUN to TRX converter and TRC-20 decimals",
+    "description": "Convert SUN to TRX and back and format TRC-20 token amounts with BigInt-safe parseUnits and formatUnits. USDT TRC-20 ready, zero dependencies."
+  },
+  "tron-client": {
+    "title": "TRON HTTP client for Node.js (TronGrid)",
+    "description": "Minimal zero-dependency HTTP client for TronGrid and TRON full nodes: mainnet, Nile and Shasta presets, API key support, timeouts, retry on limits."
+  },
+  "tron-keygen": {
+    "title": "Offline TRON wallet and address generator",
+    "description": "Generate a TRON private key and address offline, derive accounts from a BIP-39 mnemonic at m/44'/195'/0'/0/n, search vanity addresses. No network."
+  },
+  "tron-energy-calculator": {
+    "title": "TRON energy and USDT TRC-20 fee calculator",
+    "description": "Work out what a USDT TRC-20 transfer costs in energy, bandwidth and TRX, including the new-recipient surcharge, and compare renting against burning."
+  },
+  "tron-account-resources": {
+    "title": "Check TRON energy and bandwidth of an address",
+    "description": "Read energy, bandwidth, staked TRX and delegated resources for any TRON address, and see how many USDT transfers the balance actually covers."
+  },
+  "trc20-decoder": {
+    "title": "TRC-20 calldata and event log decoder",
+    "description": "Decode TRC-20 calldata and event logs from raw TronGrid JSON: transfer, approve and transferFrom, Transfer and Approval events, function selectors."
+  },
+  "trc20-token": {
+    "title": "Get a USDT TRC-20 balance, no private key",
+    "description": "Read any TRC-20 token on TRON without a private key: balanceOf, allowance, name, symbol, decimals and total supply via triggerconstantcontract."
+  },
+  "tron-tx-inspector": {
+    "title": "TRON transaction and fee breakdown lookup",
+    "description": "Look up any TRON transaction by hash: status, block, sender, recipient, decoded TRC-20 method and a full breakdown of energy, bandwidth and burn."
+  },
+  "tron-rpc-health": {
+    "title": "TRON RPC endpoints and node health check",
+    "description": "Measure latency, block height and lag across TronGrid, TronStack and public TRON nodes on mainnet, Nile and Shasta, and pick the fastest endpoint."
+  },
+  "tron-address-watcher": {
+    "title": "USDT TRC-20 deposit notifications for TRON",
+    "description": "Watch TRON addresses for incoming USDT TRC-20 and TRX transfers and get events or webhooks, with de-duplication and no full node to run yourself."
+  }
+}
